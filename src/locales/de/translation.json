@@ -1,0 +1,12 @@
+{
+  "NAME": "Name",
+  "FAMILY":"Familie",
+  "FAMILY NAME":"Apellido",
+  "ADDRESS": "Adresse",
+  "COUNTRY OF ORIGIN": "Herkunftsland",
+  "EMAIL": "Email",
+  "AGE": "Alter",
+  "HIRED": "Gemietet",
+  "SUBMIT": "EINREICHEN",
+  "APPLICANT FORM": "ANTRAGSTELLERFORMULAR"
+}

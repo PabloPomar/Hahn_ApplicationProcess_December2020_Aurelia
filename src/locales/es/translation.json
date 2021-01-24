@@ -1,0 +1,12 @@
+{
+  "NAME": "Nombre",
+  "FAMILY":"Familia",
+  "FAMILY NAME":"Apellido",
+  "ADDRESS": "Dirección",
+  "COUNTRY OF ORIGIN": "Pais de origen",
+  "EMAIL": "Email",
+  "AGE": "Edad",
+  "HIRED": "Contratado",
+  "SUBMIT": "ENVIAR",
+  "APPLICANT FORM": "Formulario de aplicante"
+}

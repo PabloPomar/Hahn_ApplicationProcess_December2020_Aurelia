@@ -1,0 +1,84 @@
+<template>
+<!--  <div>
+    <span class="text-danger">BOOSTRAP WORKS</span>
+    <h1>ID: ${ID}</h1> <br>
+    <h1>Name: ${name}</h1>  <br>
+    <h1>FamilyName: ${familyName}</h1>  <br>
+    <h1>Address: ${address}</h1>  <br>
+    <h1>CountryOfOrigin: ${countryOfOrigin}</h1>  <br>
+    <h1>EMailAdress: ${eMailAdress}</h1>  <br>
+    <h1>Age: ${age}</h1>  <br>
+    <h1>hired: ${hired}</h1>  <br>
+  </div>-->
+  <div class="container">
+    <h1 t="APPLICANT FORM">Applicant Form</h1>
+  <form role = "form" submit.delegate = "submit()">
+    <table>
+      <tr>
+        <td>
+          <label t="NAME">:</label><span>:</span>
+        </td>
+        <td>
+          <input type="text" value.bind="name & validate" t="[placeholder]NAME">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label t="FAMILY NAME">Family Name:</label><span>:</span>
+        </td>
+        <td>
+          <input type="text" value.bind="familyName & validate"  t="[placeholder]FAMILY NAME">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label t="ADDRESS">Address:</label><span>:</span>
+        </td>
+        <td>
+          <input type="text" value.bind="address" t="[placeholder]ADDRESS">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label t="COUNTRY OF ORIGIN">Country of Origin:</label><span>:</span>
+        </td>
+        <td>
+          <input type="text" value.bind="countryOfOrigin" t="[placeholder]COUNTRY OF ORIGIN">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label t="EMAIL">Email:</label><span>:</span>
+        </td>
+        <td>
+          <input type="text" value.bind="eMailAdress"  t="[placeholder]EMAIL">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label t="AGE">Age:</label><span>:</span>
+        </td>
+        <td>
+          <input type="number" value.bind="age" t="[placeholder]AGE">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label T="HIRED">Hired:</label>
+        </td>
+        <td>
+          <input type="checkbox" checked.bind="hired" >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type = "submit" t="SUBMIT">SUBMIT</button>
+        </td>
+        <td>
+          <input type="submit" value="erase">
+        </td>
+      </tr>
+    </table>
+  </form>
+  </div>
+</template>
