@@ -4,9 +4,11 @@ import {App} from "../../app";
 import {I18N} from 'aurelia-i18n';
 import {inject, NewInstance} from 'aurelia-dependency-injection';
 import {autoinject} from 'aurelia-dependency-injection';
-import {ValidationControllerFactory, ValidationController, ValidationRules} from 'aurelia-validation';
+import {ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger} from 'aurelia-validation';
+import {BootstrapFormRenderer} from "../form-renderer/bootstrap-form-renderer";
+import {promises} from "dns";
 
-let httpClient = new HttpClient()
+const httpClient = new HttpClient()
   .configure(x => {
     x.withBaseUrl('https://localhost:5001/');
     x.withHeader('Accept', 'application/json');
@@ -29,7 +31,23 @@ let httpClient = new HttpClient()
     });
   });
 
+const httpClientCountry = new HttpClient()
+//$"https://restcountries.eu/rest/v2/name/" + CountryOfOrigin + "?fullText=true"
+  .configure(x => {
+    x.withBaseUrl('https://restcountries.eu/rest/v2/name/');
+    x.withHeader('Accept', 'application/json');
+  });
 
+async function tryCountryApi(country) {
+  //httpClientCountry.get('Argenatina?fullText=true').then(result => console.log(result.statusCode)).catch(result => console.log(result.statusCode));
+  let exist = false;
+  await httpClientCountry.get(country + '?fullText=true').then(result => {
+    exist = true;
+  }).catch(result => {
+    exist = false;
+  });
+  return exist;
+}
 
 function getAllApllicants(){
   httpClient.get('GetAll').then(result => console.log(result.response));
@@ -58,7 +76,11 @@ function deleteOneApplicant(ID : number){
   return httpClient.delete('Delete?ID=' + ID).then(result => console.log(result.response));
 }
 
+
+
 //addOneApplicant();
+
+//trylanguajesApi();
 
 getAllApllicants();
 
@@ -78,13 +100,18 @@ export class Applicant {
   @bindable eMailAdress  = '';
   @bindable age = 0;
   @bindable hired = false;
+  @bindable canReset = false;
+  @bindable canSave = false;
   //static inject = [I18N];
   //private i18n: I18N;
 
   constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
     this.i18n = i18n;
-
-    controller = validationControllerFactory.createForCurrentScope();
+    this.canReset = false;
+    this.canSave = false;
+    this.controller = validationControllerFactory.createForCurrentScope();
+    this.controller.validateTrigger = validateTrigger.manual;
+    this.controller.addRenderer(new BootstrapFormRenderer(this.i18n));
     console.log(ValidationControllerFactory);
     console.log(this.controller);
     console.log(i18n);
@@ -99,9 +126,6 @@ export class Applicant {
     this.eMailAdress = EMailAdress;
     this.age = Age;
     this.hired = hired;
-    ValidationRules
-      .ensure("name").required().minLength(5)
-      .ensure("familyName").required().minLength(6).on(this);
   }
 
   submit() {
@@ -112,7 +136,7 @@ export class Applicant {
       .then(result => {
         if (result.valid) {
           alert("Success my man");
-          let saveApplicant = {ID: this.id, name : this.name, familyName: this.familyName, address : this.address, countryOfOrigin : this.countryOfOrigin, eMailAdress:this.eMailAdress, age: this.age , hired: this.hired};
+          const saveApplicant = {ID: this.id, name : this.name, familyName: this.familyName, address : this.address, countryOfOrigin : this.countryOfOrigin, eMailAdress:this.eMailAdress, age: this.age , hired: this.hired};
           console.log(saveApplicant)
           addOneApplicant(saveApplicant);
         } else {
@@ -120,10 +144,76 @@ export class Applicant {
         }
       });
   }
-  valueChanged(newValue, oldValue) {
-    //
+
+  checkInputChances(){
+/*    if(this.name === null || this.name === '' || this.name === undefined
+      || this.familyName === null || this.familyName === '' || this.familyName === undefined
+      || this.address === null || this.address === '' || this.address === undefined
+      || this.countryOfOrigin === null || this.countryOfOrigin === '' || this.countryOfOrigin === undefined
+      || this.eMailAdress === null || this.eMailAdress === ''  || this.eMailAdress === undefined
+      || this.age === null  || this.age === undefined){
+      this.canReset = false
+    } else {
+      this.canReset = true
+    }*/
+    if((this.name === null || this.name === '' || this.name === undefined) &&
+       (this.familyName === null || this.familyName === '' || this.familyName === undefined) &&
+       (this.address === null || this.address === '' || this.address === undefined) &&
+       (this.countryOfOrigin === null || this.countryOfOrigin === '' || this.countryOfOrigin === undefined) &&
+       (this.eMailAdress === null || this.eMailAdress === ''  || this.eMailAdress === undefined) &&
+       (this.age === null  || this.age === undefined || this.age === 0 || !this.age)) {
+      this.canReset = false
+    } else {
+      this.canReset = true
+    }
+    if(this.name === null || this.name === '' || this.name === undefined
+      || this.familyName === null || this.familyName === '' || this.familyName === undefined
+      || this.address === null || this.address === '' || this.address === undefined
+      || this.countryOfOrigin === null || this.countryOfOrigin === '' || this.countryOfOrigin === undefined
+      || this.eMailAdress === null || this.eMailAdress === ''  || this.eMailAdress === undefined
+      || this.age === null  || this.age === undefined || !this.age){
+      this.canSave = false
+    } else {
+      this.controller.validate().then(result => {
+        if (result.valid) {
+          this.canSave = true
+        } else {
+          this.canSave = false
+        }
+      });
+    }
   }
+
+  resetForm(){
+    const result = confirm(this.i18n.tr('CLEAREDFORM'));
+    const butRes = document.getElementById('resButton');
+    const form = butRes.closest('form');
+    if(result){
+      form.reset();
+      this.canReset = false
+    }
+  }
+
+
+
 }
+
+ValidationRules.customRule(
+  'countryExist',
+  (value, obj) => value === null || value === undefined
+    || tryCountryApi(value),
+  `\${$displayName} must exist`
+);
+
+
+ValidationRules
+  .ensure("name").required().withMessage(`this field is required`).minLength(5).withMessage("The name must have at least 5 characters")
+  .ensure("familyName").required().withMessage(`this field is required`).minLength(5).withMessage("The family name must contain at least 5 characters")
+  .ensure("address").required().withMessage(`this field is required`).minLength(10).withMessage("The adress must have be at least 10 characters long")
+  .ensure("countryOfOrigin").required().withMessage(`this field is required`).satisfiesRule('countryExist').withMessage("The country must exist")
+  .ensure("eMailAdress").required().withMessage(`this field is required`).email().withMessage("The Email Adress must be valid (it must contain an '@' character)")
+  .ensure("age").required().withMessage(`this field is required`).between(20,60).withMessage("The age field must be between 20 and 60 years old")
+  .on(Applicant);
 
 
 

@@ -7,6 +7,16 @@
   "EMAIL": "Email",
   "AGE": "Alter",
   "HIRED": "Gemietet",
-  "SUBMIT": "EINREICHEN",
-  "APPLICANT FORM": "ANTRAGSTELLERFORMULAR"
+  "SUBMIT": "senden",
+  "RESET" : "Zurücksetzen",
+  "APPLICANT FORM": "ANTRAGSTELLERFORMULAR",
+  "this field is required" :  "Dieses Feld wird benötigt",
+  "The country must exist" : "Das Land muss existieren",
+  "The name must have at least 5 characters" : "Der Name muss mindestens 5 Zeichen enthalten",
+  "The family name must contain at least 5 characters" :  "Der Nachname muss mindestens 5 Zeichen lang sein",
+  "The adress must have be at least 10 characters long" :  "Die Adresse muss mindestens 10 Zeichen lang sein",
+  "The Email Adress must be valid (it must contain an '@' character)" :  "Die E-Mail-Adresse muss gültig sein (sie muss ein @ -Zeichen enthalten)",
+  "The age field must be between 20 and 60 years old" :  "Das Altersfeld muss zwischen 20 und 60 Jahre alt sein",
+  "CLEAREDFORM" : "Das Formular wird gelöscht. Sind Sie sicher, dass Sie das wollen?"
+
 }

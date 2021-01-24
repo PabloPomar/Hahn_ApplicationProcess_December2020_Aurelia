@@ -8,5 +8,14 @@
   "AGE": "Edad",
   "HIRED": "Contratado",
   "SUBMIT": "ENVIAR",
-  "APPLICANT FORM": "Formulario de aplicante"
+  "RESET" : "Resetear",
+  "APPLICANT FORM": "Formulario de aplicante",
+  "this field is required" : "Debe completar este campo",
+  "The country must exist" : "El pais debe existir",
+  "The name must have at least 5 characters" :  "El nombre debe tener al menos 5 caracteres",
+  "The family name must contain at least 5 characters" : "El apellido debe contener al menos 5 caracteres",
+  "The adress must have be at least 10 characters long" : "La direccion debe tener al menos 10 caracteres",
+  "The Email Adress must be valid (it must contain an '@' character)" : "La direccion de correo electronico debe ser valida (debe contener un caracter '@')",
+  "The age field must be between 20 and 60 years old" : "El campo de edad debe tener entre 20 y 60 años",
+  "CLEAREDFORM" : "El formulario sera reseteado. ¿esta seguro que esto es lo que quiere?"
 }
