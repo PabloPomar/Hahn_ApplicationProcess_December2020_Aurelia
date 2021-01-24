@@ -3,6 +3,10 @@
   <require from="bootstrap/dist/css/bootstrap.min.css"></require>
   <require from="resources/elements/applicant"></require>
   <body aurelia-app="main">
-  <applicant></applicant>
+  <router-view></router-view>
+  <ul repeat.for="nav of router.navigation">
+    <li class="${nav.isActive ? 'active' : ''}"><a href.bind="nav.href">${nav.title}</a></li>
+  </ul>
+  <br><br>
   </body>
 </template>
