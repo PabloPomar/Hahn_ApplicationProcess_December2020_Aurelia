@@ -18,5 +18,8 @@
   "The adress must have be at least 10 characters long" :  "The adress must have be at least 10 characters long",
   "The Email Adress must be valid (it must contain an '@' character)" :  "The Email Adress must be valid (it must contain an '@' character)",
   "The age field must be between 20 and 60 years old" :  "The age field must be between 20 and 60 years old",
-  "CLEAREDFORM" : "The form will be cleared. Are you sure you want this?"
+  "CLEAREDFORM" : "The form will be cleared. Are you sure you want this?",
+  "SUCCESSAPL" : "THE APPLICANT WAS CORRECTLY SAVED",
+  "ERRORAPL" : "ERROR, THE APPLICANT COULD NOT BE SAVED",
+  "BACKTOAPPLI" : "Return to the form"
 }

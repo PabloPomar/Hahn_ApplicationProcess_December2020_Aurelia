@@ -1,4 +1,4 @@
-import {bindable} from 'aurelia-framework';
+import {bindable, PLATFORM} from 'aurelia-framework';
 import {HttpClient} from "aurelia-http-client";
 import {App} from "../../app";
 import {I18N} from 'aurelia-i18n';
@@ -7,6 +7,7 @@ import {autoinject} from 'aurelia-dependency-injection';
 import {ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger} from 'aurelia-validation';
 import {BootstrapFormRenderer} from "../form-renderer/bootstrap-form-renderer";
 import {promises} from "dns";
+import {Router, RouterConfiguration} from "aurelia-router";
 
 const httpClient = new HttpClient()
   .configure(x => {
@@ -64,7 +65,8 @@ function getOneApllicants(ID : number){
 }*/
 
 function addOneApplicant(applicant){
-  httpClient.post('Add', applicant).then(result => console.log(result));
+  let response = httpClient.post('Add', applicant);
+  return response;
 }
 
 function upadteOneApplicant(applicant: Applicant){
@@ -90,7 +92,7 @@ getAllApllicants();
 
 //deleteOneApplicant(2);
 
-@inject(I18N, ValidationController, ValidationControllerFactory)
+@inject(I18N, ValidationController, ValidationControllerFactory, Router)
 export class Applicant {
   @bindable id = 0
   @bindable name = '';
@@ -105,8 +107,9 @@ export class Applicant {
   //static inject = [I18N];
   //private i18n: I18N;
 
-  constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
+  constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, private  router: Router, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
     this.i18n = i18n;
+    this.router = router;
     this.canReset = false;
     this.canSave = false;
     this.controller = validationControllerFactory.createForCurrentScope();
@@ -127,20 +130,35 @@ export class Applicant {
     this.age = Age;
     this.hired = hired;
   }
+  goToSuccess() {
+    this.router.navigate("/success")
+  }
 
-  submit() {
+  async goToError(messages: string) {
+    messages = await messages.replace( /\\r\\n/gi , '<br>')
+    await this.router.navigate("/error");
+    document.getElementById("errorsLab").innerHTML = messages;
+  }
+
+   submit() {
     if(this.hired === null){
       this.hired = false;
     }
    this.controller.validate()
-      .then(result => {
+      .then(async result => {
         if (result.valid) {
-          alert("Success my man");
+         // alert("Success my man");
           const saveApplicant = {ID: this.id, name : this.name, familyName: this.familyName, address : this.address, countryOfOrigin : this.countryOfOrigin, eMailAdress:this.eMailAdress, age: this.age , hired: this.hired};
-          console.log(saveApplicant)
-          addOneApplicant(saveApplicant);
+          let Messageresponse = await addOneApplicant(saveApplicant);
+          await console.log(Messageresponse);
+          if(Messageresponse.statusCode === 201){
+            this.goToSuccess();
+          } else {
+            let errors = Messageresponse.response;
+            await this.goToError(errors);
+          }
         } else {
-          alert("Failure my man");
+        //  alert("Failure my man");
         }
       });
   }
@@ -206,14 +224,14 @@ ValidationRules.customRule(
 );
 
 
-ValidationRules
+/*ValidationRules
   .ensure("name").required().withMessage(`this field is required`).minLength(5).withMessage("The name must have at least 5 characters")
   .ensure("familyName").required().withMessage(`this field is required`).minLength(5).withMessage("The family name must contain at least 5 characters")
   .ensure("address").required().withMessage(`this field is required`).minLength(10).withMessage("The adress must have be at least 10 characters long")
   .ensure("countryOfOrigin").required().withMessage(`this field is required`).satisfiesRule('countryExist').withMessage("The country must exist")
   .ensure("eMailAdress").required().withMessage(`this field is required`).email().withMessage("The Email Adress must be valid (it must contain an '@' character)")
   .ensure("age").required().withMessage(`this field is required`).between(20,60).withMessage("The age field must be between 20 and 60 years old")
-  .on(Applicant);
+  .on(Applicant);*/
 
 
 

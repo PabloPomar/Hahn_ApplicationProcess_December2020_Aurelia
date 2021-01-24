@@ -34,6 +34,11 @@
           <button type = "submit" class="btn btn-primary" t="SUBMIT" disabled.bind="!canSave">SUBMIT</button>
           <button type = "button" class="btn btn-primary" t="RESET" id="resButton"  disabled.bind="!canReset" click.delegate="resetForm()" >RESET</button>
     </div>
+  </div>
   </form>
+    <button click.delegate="goToSuccess()">Sucsess</button>
+    <button click.delegate="goToError()">Error</button>
+    <a route-href="route: success">Back to List</a>
+    <a route-href="route: error">Go to error</a>
   </div>
 </template>

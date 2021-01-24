@@ -17,6 +17,8 @@
   "The adress must have be at least 10 characters long" :  "Die Adresse muss mindestens 10 Zeichen lang sein",
   "The Email Adress must be valid (it must contain an '@' character)" :  "Die E-Mail-Adresse muss gültig sein (sie muss ein @ -Zeichen enthalten)",
   "The age field must be between 20 and 60 years old" :  "Das Altersfeld muss zwischen 20 und 60 Jahre alt sein",
-  "CLEAREDFORM" : "Das Formular wird gelöscht. Sind Sie sicher, dass Sie das wollen?"
-
+  "CLEAREDFORM" : "Das Formular wird gelöscht. Sind Sie sicher, dass Sie das wollen?",
+  "SUCCESSAPL" : "DER ANTRAGSTELLER WURDE RICHTIG GESPEICHERT",
+  "ERRORAPL" : "FEHLER, DER ANTRAGSTELLER KANN NICHT GESPEICHERT WERDEN",
+  "BACKTOAPPLI" : "Zurück zum Formular"
 }

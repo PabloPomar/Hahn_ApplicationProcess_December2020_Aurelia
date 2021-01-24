@@ -2,11 +2,9 @@
 
   <require from="bootstrap/dist/css/bootstrap.min.css"></require>
   <require from="resources/elements/applicant"></require>
+  <require from="resources/elements/success-page"></require>
+  <require from="resources/elements/error-page"></require>
   <body aurelia-app="main">
-  <router-view></router-view>
-  <ul repeat.for="nav of router.navigation">
-    <li class="${nav.isActive ? 'active' : ''}"><a href.bind="nav.href">${nav.title}</a></li>
-  </ul>
-  <br><br>
+      <router-view></router-view>
   </body>
 </template>
