@@ -1,16 +1,22 @@
 import {bindable} from 'aurelia-framework';
 import {inject} from "aurelia-dependency-injection";
 import {I18N} from "aurelia-i18n";
+import {DialogController} from 'aurelia-dialog';
 
-@inject(I18N)
+@inject(I18N, DialogController)
 export class ErrorPage {
   @bindable errorMessage;
+  @bindable errorSummary;
+  errormod = { errorMessage: '', errorSummary: ''  }
 
-  constructor(private  i18n: I18N) {
+  constructor(private  i18n: I18N, private  dialogController: DialogController) {
     this.i18n = i18n;
-    this.errorMessage = i18n.tr('ERRORAPL');
+    this.dialogController = dialogController;
   }
-  valueChanged(newValue, oldValue) {
-    //
+
+  activate(errormod){
+    this.errormod = errormod;
   }
 }
+
+

@@ -1,5 +1,14 @@
 <template>
-  <h1>${errorMessage}</h1>
-  <div id="errorsLab"></div>
-  <a route-href="route: applicant" t="BACKTOAPPLI">Back to applicant</a>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h1>${errormod.errorMessage}</h1>
+      <div>${errormod.errorSummary}</div>
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button click.trigger="dialogController.cancel()">Cancel</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+<!--  <h1>${errorMessage}</h1>-->
+<!--  <div id="errorsLab">${errorSummary}</div>-->
+<!--  <a route-href="route: applicant" t="BACKTOAPPLI">Back to applicant</a>-->
 </template>

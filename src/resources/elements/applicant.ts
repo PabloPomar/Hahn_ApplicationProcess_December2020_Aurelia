@@ -8,6 +8,9 @@ import {ValidationControllerFactory, ValidationController, ValidationRules, vali
 import {BootstrapFormRenderer} from "../form-renderer/bootstrap-form-renderer";
 import {promises} from "dns";
 import {Router, RouterConfiguration} from "aurelia-router";
+import {DialogService} from 'aurelia-dialog';
+import {ErrorPage} from "./error-page";
+
 
 const httpClient = new HttpClient()
   .configure(x => {
@@ -92,7 +95,7 @@ getAllApllicants();
 
 //deleteOneApplicant(2);
 
-@inject(I18N, ValidationController, ValidationControllerFactory, Router)
+@inject(I18N, ValidationController, ValidationControllerFactory, Router, DialogService)
 export class Applicant {
   @bindable id = 0
   @bindable name = '';
@@ -107,9 +110,10 @@ export class Applicant {
   //static inject = [I18N];
   //private i18n: I18N;
 
-  constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, private  router: Router, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
+  constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, private  router: Router, private dialogService:DialogService, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
     this.i18n = i18n;
     this.router = router;
+    this.dialogService = dialogService;
     this.canReset = false;
     this.canSave = false;
     this.controller = validationControllerFactory.createForCurrentScope();
@@ -136,8 +140,17 @@ export class Applicant {
 
   async goToError(messages: string) {
     messages = await messages.replace( /\\r\\n/gi , '<br>')
-    await this.router.navigate("/error");
-    document.getElementById("errorsLab").innerHTML = messages;
+    let errormod = { errorMessage: this.i18n.tr('ERRORAPL'), errorSummary: messages  }
+    console.log(errormod);
+    await this.dialogService.open({viewModel: ErrorPage, model: errormod, lock: false}).whenClosed(response => {
+      if (!response.wasCancelled) {
+        console.log('good');
+      } else {
+        console.log('bad');
+      }
+      //await this.router.navigate("/error");
+      //document.getElementById("errorsLab").innerHTML = messages;
+    })
   }
 
    submit() {

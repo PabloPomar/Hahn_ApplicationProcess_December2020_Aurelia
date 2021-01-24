@@ -36,6 +36,7 @@ export function configure(aurelia: Aurelia): void {
 
   aurelia.use.plugin(PLATFORM.moduleName('aurelia-validation'));
   aurelia.use.plugin(PLATFORM.moduleName('aurelia-router'));
+  aurelia.use.plugin(PLATFORM.moduleName('aurelia-dialog'));
 
   if (environment.testing) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
