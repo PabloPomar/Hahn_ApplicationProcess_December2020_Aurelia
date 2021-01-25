@@ -1,44 +1,63 @@
 <template>
-  <div class="container">
-    <h1 t="APPLICANT FORM">Applicant Form</h1>
+  <require from="./applicant.css"></require>
+  <div class="centeredContainer" >
+    <br>
+    <h1 t="APPLICANT FORM" class="titleStyle">Applicant Form</h1><hr>
   <form role = "form" submit.delegate = "submit()" >
-    <ul><li repeat.for="error of controller.errors" class="form-control" >${error.message}</li></ul>
-    <div class="form-group" >
-          <label t="NAME" class="control-label" >:</label><span>:</span>
-          <input type="text"  class="form-control" id="name" value.bind="name  & validate" t="[placeholder]NAME" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+    <div class="form-group " >
+      <div class="form-inline">
+          <label t="NAME" style.bind="labelStyle" class="control-label" ></label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="text"   class="form-control inputForm" id="name" value.bind="name  & validate" t="[placeholder]NAME" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group" >
-          <label t="FAMILY NAME" class="control-label" >Family Name:</label><span>:</span>
-          <input type="text"  class="form-control" id="familyName" value.bind="familyName & validate"  t="[placeholder]FAMILY NAME" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      <div class="form-inline">
+          <label t="FAMILY NAME" style.bind="labelStyle" class="control-label" >Family Name:</label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="text"  class="form-control inputForm" id="familyName" value.bind="familyName & validate"  t="[placeholder]FAMILY NAME" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group">
-          <label t="ADDRESS" class="control-label" >Address:</label><span>:</span>
-          <input type="text" value.bind="address & validate" class="form-control"  t="[placeholder]ADDRESS" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      <div class="form-inline">
+          <label t="ADDRESS" style.bind="labelStyle" class="control-label" >Address:</label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="text"   value.bind="address & validate" class="form-control inputForm"  t="[placeholder]ADDRESS" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group" >
-          <label t="COUNTRY OF ORIGIN" class="control-label" >Country of Origin:</label><span>:</span>
-          <input type="text" class="form-control" value.bind="countryOfOrigin & validate" t="[placeholder]COUNTRY OF ORIGIN" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      <div class="form-inline">
+          <label t="COUNTRY OF ORIGIN" style.bind="labelStyle" class="control-label" >Country of Origin:</label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="text"   class="form-control inputForm" value.bind="countryOfOrigin & validate" t="[placeholder]COUNTRY OF ORIGIN" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group" >
-          <label t="EMAIL" class="control-label" >Email:</label><span>:</span>
-          <input type="text" class="form-control" value.bind="eMailAdress & validate"  t="[placeholder]EMAIL" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      <div class="form-inline">
+          <label t="EMAIL" style.bind="labelStyle"  class="control-label" >Email:</label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="text"   class="form-control inputForm" value.bind="eMailAdress & validate"  t="[placeholder]EMAIL" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group">
-          <label t="AGE" class="control-label" >Age:</label><span>:</span>
-          <input type="number" class="form-control" value.bind="age & validate" t="[placeholder]AGE" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      <div class="form-inline">
+          <label t="AGE" style.bind="labelStyle" class="control-label" >Age:</label><span style.bind="spacingStyle">:&nbsp;&nbsp; </span>
+          <input type="number"   class="form-control inputForm" value.bind="age & validate" t="[placeholder]AGE" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+      </div>
     </div>
     <div class="form-group" >
-          <label T="HIRED" class="control-label">Hired:</label>
-          <input type="checkbox" class="form-control" checked.bind="hired & validate" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
-    <div>
-          <button type = "submit" class="btn btn-primary" t="SUBMIT" disabled.bind="!canSave">SUBMIT</button>
-          <button type = "button" class="btn btn-primary" t="RESET" id="resButton"  disabled.bind="!canReset" click.delegate="resetForm()" >RESET</button>
+      <div class="form-inline">
+        <label class="container">
+          <label T="HIRED"  class="control-label checklabel">Hired</label><span class="checklabelSpacing">:&nbsp;&nbsp; </span>
+          <input type="checkbox"   checked.bind="hired & validate" change.delegate="checkInputChances()" keyup.delegate="checkInputChances()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
     </div>
-  </div>
+    <hr>
+    <div class="form-group form-inline" style.bind="centerButtons">
+      <div>
+          <button type = "submit"  class="myButton" t="SUBMIT" disabled.bind="!canSave">SUBMIT</button>&nbsp;&nbsp;
+      </div>
+      <div>
+        <button type = "button" class="myButton" t="RESET" id="resButton"  disabled.bind="!canReset" click.delegate="resetForm()" >RESET</button>
+      </div>
+    </div>
   </form>
-    <button click.delegate="goToSuccess()">Sucsess</button>
-    <button click.delegate="goToError()">Error</button>
-    <a route-href="route: success">Back to List</a>
-    <a route-href="route: error">Go to error</a>
   </div>
 </template>

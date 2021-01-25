@@ -107,10 +107,27 @@ export class Applicant {
   @bindable hired = false;
   @bindable canReset = false;
   @bindable canSave = false;
+  @bindable titleStyle = '';
+  @bindable inputStyle = '';
+  @bindable labelStyle = '';
+  @bindable checkboxStyle = '';
+  @bindable spacingStyle = '';
+  @bindable centerButtons = '';
+  @bindable formbuttons = '';
   //static inject = [I18N];
   //private i18n: I18N;
 
   constructor(private  i18n: I18N, private controller: ValidationController,private validationControllerFactory : ValidationControllerFactory, private  router: Router, private dialogService:DialogService, ID: number, Name: string, FamilyName: string, Address: string , CountryOfOrigin: string, EMailAdress: string, Age : number, hired : boolean) {
+
+    //---Style section---//
+    this.titleStyle = '  position: relative; left: 0%; font-color:"white"; font-family: "Georgia", serif; text-align: center; font-size: 10mm; font-weight: bold; align: center;';
+    this.inputStyle = ' position: relative; left:30%; width : 50%';
+    this.labelStyle = ' position: relative; left:15%; text-align: center; width: 15%; font-family: "Georgia", serif; font-size: 7mm; font-weight: bold;'
+    this.spacingStyle =   ' position: relative; left:23%; font-family: "Georgia", serif; font-size: 8mm; font-weight: bold;'
+    this.checkboxStyle = ' position: relative;  left: 30%;';
+    this.centerButtons = '  position: relative;  left: 30%; '
+    this.formbuttons = '	background-color:#1a4ca3; border-radius:28px; border:1px solid #4e6096; display:inline-block; cursor:pointer; color:#ffffff; font-family:Arial; font-size:20px; padding:13px 40px; text-decoration:none; '
+    //---Variables section---//
     this.i18n = i18n;
     this.router = router;
     this.dialogService = dialogService;
@@ -139,7 +156,7 @@ export class Applicant {
   }
 
   async goToError(messages: string) {
-    messages = await messages.replace( /\\r\\n/gi , "///////"  )
+    messages = await messages.replace( /\\r\\n/gi , ". --- ."  )
     messages = await messages.replace( /"/gi , " "  )
     let errormod = { errorMessage: this.i18n.tr('ERRORAPL'), errorSummary: messages  }
     console.log(errormod);
@@ -227,7 +244,6 @@ ValidationRules.customRule(
   `\${$displayName} must exist`
 );
 
-
 ValidationRules
   .ensure("name").required().withMessage(`this field is required`).minLength(5).withMessage("The name must have at least 5 characters")
   .ensure("familyName").required().withMessage(`this field is required`).minLength(5).withMessage("The family name must contain at least 5 characters")
@@ -236,6 +252,7 @@ ValidationRules
   .ensure("eMailAdress").required().withMessage(`this field is required`).email().withMessage("The Email Adress must be valid (it must contain an '@' character)")
   .ensure("age").required().withMessage(`this field is required`).between(20,60).withMessage("The age field must be between 20 and 60 years old")
   .on(Applicant);
+
 
 
 

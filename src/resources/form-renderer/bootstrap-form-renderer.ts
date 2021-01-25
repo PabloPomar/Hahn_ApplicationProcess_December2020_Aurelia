@@ -48,6 +48,9 @@ export class BootstrapFormRenderer {
       const message = document.createElement('span');
       message.className = 'help-block validation-message';
       message.style.color = 'red';
+      message.style.textAlign = 'center';
+      message.style.position = 'relative';
+      message.style.left = '10%';
      // message.style.border = ' 2px solid red';
       message.textContent = this.i18n.tr(result.message) ;
       message.id = `validation-message-${result.id}`;
