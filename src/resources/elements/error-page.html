@@ -1,12 +1,14 @@
 <template>
   <ux-dialog>
+    <ux-dialog-header>
+    </ux-dialog-header>
     <ux-dialog-body>
       <h1>${errormod.errorMessage}</h1>
       <div>${errormod.errorSummary}</div>
     </ux-dialog-body>
-    <ux-dialog-footer>
-      <button click.trigger="dialogController.cancel()">Cancel</button>
-    </ux-dialog-footer>
+<!--    <ux-dialog-footer>
+      <button click.trigger="dialogController.cancel()">X</button>
+    </ux-dialog-footer>-->
   </ux-dialog>
 <!--  <h1>${errorMessage}</h1>-->
 <!--  <div id="errorsLab">${errorSummary}</div>-->

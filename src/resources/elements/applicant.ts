@@ -139,7 +139,8 @@ export class Applicant {
   }
 
   async goToError(messages: string) {
-    messages = await messages.replace( /\\r\\n/gi , '<br>')
+    messages = await messages.replace( /\\r\\n/gi , "///////"  )
+    messages = await messages.replace( /"/gi , " "  )
     let errormod = { errorMessage: this.i18n.tr('ERRORAPL'), errorSummary: messages  }
     console.log(errormod);
     await this.dialogService.open({viewModel: ErrorPage, model: errormod, lock: false}).whenClosed(response => {
@@ -177,16 +178,6 @@ export class Applicant {
   }
 
   checkInputChances(){
-/*    if(this.name === null || this.name === '' || this.name === undefined
-      || this.familyName === null || this.familyName === '' || this.familyName === undefined
-      || this.address === null || this.address === '' || this.address === undefined
-      || this.countryOfOrigin === null || this.countryOfOrigin === '' || this.countryOfOrigin === undefined
-      || this.eMailAdress === null || this.eMailAdress === ''  || this.eMailAdress === undefined
-      || this.age === null  || this.age === undefined){
-      this.canReset = false
-    } else {
-      this.canReset = true
-    }*/
     if((this.name === null || this.name === '' || this.name === undefined) &&
        (this.familyName === null || this.familyName === '' || this.familyName === undefined) &&
        (this.address === null || this.address === '' || this.address === undefined) &&
@@ -237,14 +228,15 @@ ValidationRules.customRule(
 );
 
 
-/*ValidationRules
+ValidationRules
   .ensure("name").required().withMessage(`this field is required`).minLength(5).withMessage("The name must have at least 5 characters")
   .ensure("familyName").required().withMessage(`this field is required`).minLength(5).withMessage("The family name must contain at least 5 characters")
   .ensure("address").required().withMessage(`this field is required`).minLength(10).withMessage("The adress must have be at least 10 characters long")
   .ensure("countryOfOrigin").required().withMessage(`this field is required`).satisfiesRule('countryExist').withMessage("The country must exist")
   .ensure("eMailAdress").required().withMessage(`this field is required`).email().withMessage("The Email Adress must be valid (it must contain an '@' character)")
   .ensure("age").required().withMessage(`this field is required`).between(20,60).withMessage("The age field must be between 20 and 60 years old")
-  .on(Applicant);*/
+  .on(Applicant);
+
 
 
 
