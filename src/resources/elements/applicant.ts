@@ -1,15 +1,17 @@
-import {bindable, PLATFORM} from 'aurelia-framework';
+import {bindable} from 'aurelia-framework';
 import {HttpClient} from "aurelia-http-client";
-import {App} from "../../app";
 import {I18N} from 'aurelia-i18n';
-import {inject, NewInstance} from 'aurelia-dependency-injection';
-import {autoinject} from 'aurelia-dependency-injection';
+import {inject} from 'aurelia-dependency-injection';
 import {ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger} from 'aurelia-validation';
 import {BootstrapFormRenderer} from "../form-renderer/bootstrap-form-renderer";
-import {promises} from "dns";
-import {Router, RouterConfiguration} from "aurelia-router";
+import {Router} from "aurelia-router";
 import {DialogService} from 'aurelia-dialog';
 import {ErrorPage} from "./error-page";
+
+/// <summary>
+/// The main class of the front. It Manages the applicant form.
+/// </summary>
+
 
 
 const httpClient = new HttpClient()
@@ -57,9 +59,9 @@ function getAllApllicants(){
   httpClient.get('GetAll').then(result => console.log(result.response));
 }
 
-function getOneApllicants(ID : number){
+/*function getOneApllicants(ID : number){
   return  httpClient.get('GetOne?ID=' + ID).then(result => console.log(result.response));
-}
+}*/
 
 /*function addOneApplicant(){
   //let applicant = new Applicant(3, "Jhoseph", "Joestar", "Brookling 123", "Argentina", "jhoseph@joestar.com", 23, true);
@@ -252,6 +254,7 @@ ValidationRules
   .ensure("eMailAdress").required().withMessage(`this field is required`).email().withMessage("The Email Adress must be valid (it must contain an '@' character)")
   .ensure("age").required().withMessage(`this field is required`).between(20,60).withMessage("The age field must be between 20 and 60 years old")
   .on(Applicant);
+
 
 
 

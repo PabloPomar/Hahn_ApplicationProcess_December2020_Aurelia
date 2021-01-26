@@ -6,6 +6,11 @@ import {
 import {inject} from "aurelia-dependency-injection";
 import {I18N} from "aurelia-i18n";
 
+
+/// <summary>
+/// The form renderer for the applicant form.
+/// </summary>
+
 @inject(I18N)
 export class BootstrapFormRenderer {
 

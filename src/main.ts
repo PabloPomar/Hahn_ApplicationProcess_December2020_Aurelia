@@ -6,6 +6,11 @@ import {PLATFORM} from 'aurelia-pal';
 import {I18N, TCustomAttribute} from 'aurelia-i18n';
 import Backend from 'i18next-http-backend'
 
+
+/// <summary>
+/// Webpack configuration pack.
+/// </summary>
+
 export function configure(aurelia: Aurelia): void {
   aurelia.use
     .standardConfiguration()
@@ -28,7 +33,7 @@ export function configure(aurelia: Aurelia): void {
         loadPath: './locales/{{lng}}/{{ns}}.json',
       },
       attributes: aliases,
-      lng : 'es',
+      lng :  'de',
       fallbackLng : 'en-US',
       debug : false
     });

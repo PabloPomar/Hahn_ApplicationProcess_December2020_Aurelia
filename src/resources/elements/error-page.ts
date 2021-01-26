@@ -3,6 +3,11 @@ import {inject} from "aurelia-dependency-injection";
 import {I18N} from "aurelia-i18n";
 import {DialogController} from 'aurelia-dialog';
 
+/// <summary>
+/// The page shows the errors if the form fails.
+/// </summary>
+
+
 @inject(I18N, DialogController)
 export class ErrorPage {
   @bindable errorMessage;

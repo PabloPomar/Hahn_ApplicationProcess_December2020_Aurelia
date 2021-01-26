@@ -4,9 +4,9 @@ import {bootstrap} from "aurelia-bootstrapper";
 import { PLATFORM } from "aurelia-framework";
 import {RouterConfiguration, Router} from 'aurelia-router';
 
-//require('bootstrap/dist/css/bootstrap.min.css');
-//require('bootstrap/bootstrap.bundle');
-//require('aurelia-form-renderer-bootstrap');
+/// <summary>
+/// The App class of application.
+/// </summary>
 
 
 export class App {
